@@ -92,7 +92,7 @@ export const AppointmentsTable: React.FC<AppointmentsTableProps> = ({
       <div className="p-6 border-b border-gray-200">
         <div className="flex justify-between items-center mb-4">
           <h3 className="text-xl font-bold text-gray-900">Appointments ({appointments.length})</h3>
-          <select
+          {/* <select
             value={statusFilter}
             onChange={(e) => setStatusFilter(e.target.value)}
             className="px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
@@ -102,7 +102,7 @@ export const AppointmentsTable: React.FC<AppointmentsTableProps> = ({
             <option value="confirmed">Confirmed</option>
             <option value="completed">Completed</option>
             <option value="cancelled">Cancelled</option>
-          </select>
+          </select> */}
         </div>
       </div>
 
@@ -126,7 +126,7 @@ export const AppointmentsTable: React.FC<AppointmentsTableProps> = ({
                   </div>
                 </th>
               ))}
-              <th
+              {/* <th
                 className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider cursor-pointer hover:bg-gray-100"
                 onClick={() => handleSort('status')}
               >
@@ -138,7 +138,7 @@ export const AppointmentsTable: React.FC<AppointmentsTableProps> = ({
                     </svg>
                   )}
                 </div>
-              </th>
+              </th> */}
               <th
                 className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider cursor-pointer hover:bg-gray-100"
                 onClick={() => handleSort('createdAt')}
@@ -165,9 +165,9 @@ export const AppointmentsTable: React.FC<AppointmentsTableProps> = ({
                     {appointment.data[field.id] || '-'}
                   </td>
                 ))}
-                <td className="px-6 py-4 whitespace-nowrap">
+                {/* <td className="px-6 py-4 whitespace-nowrap">
                   {getStatusBadge(appointment.status)}
-                </td>
+                </td> */}
                 <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
                   {formatDate(appointment.createdAt)}
                 </td>
