@@ -32,11 +32,12 @@ export const BookingForm: React.FC<BookingFormProps> = ({
   }
 
   if (field.type === 'tel' && value) {
-    const phoneRegex = /^\+?[\d\s\-\(\)]{10,}$/;
-    if (!phoneRegex.test(value)) {
-      return 'Please enter a valid phone number';
-    }
+  const phoneRegex = /^\d{11}$/; // exactly 11 digits
+  if (!phoneRegex.test(value)) {
+    return 'Phone number must be exactly 11 digits (e.g., 09123456789)';
   }
+}
+
 
   if (field.type === 'date' && value) {
     const today = new Date();
