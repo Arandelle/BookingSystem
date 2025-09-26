@@ -120,51 +120,55 @@ export const BookingForm: React.FC<BookingFormProps> = ({
     );
   }
 
-  const renderField = (field: FormField) => {
-    const value = formData[field.id] || '';
-    const error = errors[field.id];
-    const baseClasses = `w-full px-4 py-3 border capitalize rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-colors ${
-      error ? 'border-red-500' : 'border-gray-300'
-    }`;
+const renderField = (field: FormField) => {
+  const value = formData[field.id] || '';
+  const error = errors[field.id];
 
-    switch (field.type) {
-      case 'textarea':
-        return (
-          <textarea
-            value={value}
-            onChange={(e) => handleInputChange(field.id, e.target.value)}
-            className={`${baseClasses} resize-none h-24`}
-            placeholder={`Enter ${field.label.toLowerCase()}`}
-          />
-        );
-      
-      case 'select':
-        return (
-          <select
-            value={value}
-            onChange={(e) => handleInputChange(field.id, e.target.value)}
-            className={baseClasses}
-          >
-            <option value="">Select {field.label}</option>
-            {field.options?.map(option => (
-              <option key={option} value={option}>{option}</option>
-            ))}
-          </select>
-        );
-      
-      default:
-        return (
-          <input
-            type={field.type}
-            value={value}
-            onChange={(e) => handleInputChange(field.id, e.target.value)}
-            className={baseClasses}
-            placeholder={field.type === 'date' || field.type === 'time' ? '' : `Enter ${field.label.toLowerCase()}`}
-            min={field.type === 'date' ? new Date().toISOString().split('T')[0] : undefined} 
-          />
-        );
-    }
-  };
+  // Only add capitalize for normal text fields
+  const isTextLike = field.type === 'text' || field.type === 'textarea';
+  const baseClasses = `w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-colors ${
+    error ? 'border-red-500' : 'border-gray-300'
+  } ${isTextLike ? 'capitalize' : ''}`;
+
+  switch (field.type) {
+    case 'textarea':
+      return (
+        <textarea
+          value={value}
+          onChange={(e) => handleInputChange(field.id, e.target.value)}
+          className={`${baseClasses} resize-none h-24`}
+          placeholder={`Enter ${field.label.toLowerCase()}`}
+        />
+      );
+    
+    case 'select':
+      return (
+        <select
+          value={value}
+          onChange={(e) => handleInputChange(field.id, e.target.value)}
+          className={baseClasses}
+        >
+          <option value="">Select {field.label}</option>
+          {field.options?.map(option => (
+            <option key={option} value={option}>{option}</option>
+          ))}
+        </select>
+      );
+    
+    default:
+      return (
+        <input
+          type={field.type}
+          value={value}
+          onChange={(e) => handleInputChange(field.id, e.target.value)}
+          className={baseClasses}
+          placeholder={field.type === 'date' || field.type === 'time' ? '' : `Enter ${field.label.toLowerCase()}`}
+          min={field.type === 'date' ? new Date().toISOString().split('T')[0] : undefined}
+        />
+      );
+  }
+};
+
 
   return (
     <div className="max-w-2xl mx-auto p-8 bg-white rounded-xl shadow-lg">
