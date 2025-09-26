@@ -26,7 +26,7 @@ export const FieldManager: React.FC<FieldManagerProps> = ({
   const fieldTypes = [
     { value: 'text', label: 'Text' },
     { value: 'email', label: 'Email' },
-    { value: 'tel', label: 'Phone' },
+    { value: 'number', label: 'Phone' },
     { value: 'date', label: 'Date' },
     { value: 'time', label: 'Time' },
     { value: 'textarea', label: 'Textarea' },

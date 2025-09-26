@@ -31,7 +31,7 @@ export const BookingForm: React.FC<BookingFormProps> = ({
     }
   }
 
-  if (field.type === 'tel' && value) {
+  if (field.type === 'number' && value) {
   const phoneRegex = /^\d{11}$/; // exactly 11 digits
   if (!phoneRegex.test(value)) {
     return 'Phone number must be exactly 11 digits (e.g., 09123456789)';
