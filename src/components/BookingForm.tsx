@@ -20,30 +20,45 @@ export const BookingForm: React.FC<BookingFormProps> = ({
   const [submitted, setSubmitted] = useState(false);
 
   const validateField = (field: FormField, value: string): string => {
-    if (field.required && !value.trim()) {
-      return `${field.label} is required`;
-    }
+  if (field.required && !value.trim()) {
+    return `${field.label} is required`;
+  }
 
-    if (field.type === 'email' && value) {
-      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-      if (!emailRegex.test(value)) {
-        return 'Please enter a valid email address';
-      }
+  if (field.type === 'email' && value) {
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(value)) {
+      return 'Please enter a valid email address';
     }
+  }
 
-    if (field.type === 'tel' && value) {
-      const phoneRegex = /^\+?[\d\s\-\(\)]{10,}$/;
-      if (!phoneRegex.test(value)) {
-        return 'Please enter a valid phone number';
-      }
+  if (field.type === 'tel' && value) {
+    const phoneRegex = /^\+?[\d\s\-\(\)]{10,}$/;
+    if (!phoneRegex.test(value)) {
+      return 'Please enter a valid phone number';
     }
+  }
 
-    if (field.validation?.minLength && value.length < field.validation.minLength) {
-      return `${field.label} must be at least ${field.validation.minLength} characters`;
+  if (field.type === 'date' && value) {
+    const today = new Date();
+    today.setHours(0, 0, 0, 0);
+
+    const minDate = new Date(today);
+    minDate.setDate(minDate.getDate() + 2); // minimum 2 days from now
+
+    const selectedDate = new Date(value);
+
+    if (selectedDate < minDate) {
+      return `Please select a date at least 2 days from today (${minDate.toDateString()})`;
     }
+  }
 
-    return '';
-  };
+  if (field.validation?.minLength && value.length < field.validation.minLength) {
+    return `${field.label} must be at least ${field.validation.minLength} characters`;
+  }
+
+  return '';
+};
+
 
   const handleInputChange = (fieldId: string, value: string) => {
     setFormData(prev => ({ ...prev, [fieldId]: value }));
@@ -108,7 +123,7 @@ export const BookingForm: React.FC<BookingFormProps> = ({
   const renderField = (field: FormField) => {
     const value = formData[field.id] || '';
     const error = errors[field.id];
-    const baseClasses = `w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-colors ${
+    const baseClasses = `w-full px-4 py-3 border capitalize rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-colors ${
       error ? 'border-red-500' : 'border-gray-300'
     }`;
 
@@ -145,6 +160,7 @@ export const BookingForm: React.FC<BookingFormProps> = ({
             onChange={(e) => handleInputChange(field.id, e.target.value)}
             className={baseClasses}
             placeholder={field.type === 'date' || field.type === 'time' ? '' : `Enter ${field.label.toLowerCase()}`}
+            min={field.type === 'date' ? new Date().toISOString().split('T')[0] : undefined} 
           />
         );
     }
