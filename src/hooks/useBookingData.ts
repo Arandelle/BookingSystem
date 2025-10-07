@@ -8,7 +8,7 @@ const initialConfig: BookingConfig = {
   fields: [
     { id: 'name', label: 'Full Name', type: 'text', required: true },
     { id: 'email', label: 'Email Address', type: 'email', required: true },
-    { id: 'phone', label: 'Phone Number', type: 'tel', required: true },
+    { id: 'phone', label: 'Phone Number', type: 'number', required: true },
     { id: 'date', label: 'Preferred Date', type: 'date', required: true },
     { id: 'time', label: 'Preferred Time', type: 'time', required: true },
     { 
